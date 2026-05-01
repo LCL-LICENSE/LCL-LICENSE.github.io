@@ -3,204 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYS_LCL_PROTOCOL_V1.0</title>
+    <title>LCL PROTOCOL / 1.0</title>
     <style>
         :root {
-            --c-bg: #000;
-            --c-fg: #fff;
-            --c-dim: #444;
-            --c-accent: #ff003c; /* 警告・執行用レッド */
-            --f-mono: "Input Mono", "JetBrains Mono", "Courier New", monospace;
+            --bg: #ffffff;
+            --fg: #000000;
+            --dim: #707070;
+            --border: #e5e5e5;
+            --accent: #000;
+            --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --mono: "Geist Mono", "JetBrains Mono", monospace;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
         body {
-            background: var(--c-bg);
-            color: var(--c-fg);
-            font-family: var(--f-mono);
-            font-size: 12px;
-            line-height: 1.2;
-            overflow-x: hidden;
+            background: var(--bg);
+            color: var(--fg);
+            font-family: var(--font);
+            letter-spacing: -0.01em;
+            word-break: break-all;
         }
 
-        /* 背景のグリッド：システム感を強調 */
-        body::before {
-            content: "";
+        /* 壊れたフォームを表現する抽象背景 */
+        .noise {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background-image: radial-gradient(var(--c-dim) 0.5px, transparent 0.5px);
-            background-size: 20px 20px;
-            z-index: -1;
-            opacity: 0.3;
+            z-index: -1; opacity: 0.03; pointer-events: none;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyBAMAAADsEZWCAAAAElBMVEUAAAD8/Pz09PT4+PjMzMz////8isUnAAAABnRSTlMAAAAAAABupgeRAAAANUlEQVQ4y2NgGAWjYBSMglEwCkbBKBgFowABYyAnG8jJAnKygZxsIGcLmDMKRsEoGAWjYBSMAgAAtS8Bf6id6mIAAAAASUVORK5CYII=');
         }
 
-        .sys-header {
-            border-bottom: 1px solid var(--c-fg);
-            padding: 10px;
+        header {
+            padding: 40px;
             display: flex;
             justify-content: space-between;
-            position: sticky;
-            top: 0;
-            background: var(--c-bg);
-            z-index: 100;
+            align-items: flex-start;
+            border-bottom: 1px solid var(--border);
         }
 
-        .main-container {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            min-height: calc(100vh - 40px);
+        .brand { font-family: var(--mono); font-weight: 700; font-size: 14px; }
+        .version { font-family: var(--mono); color: var(--dim); font-size: 12px; }
+
+        .hero {
+            padding: 120px 40px;
+            max-width: 1200px;
         }
 
-        /* サイドバー：メタデータと哲学 */
-        .sidebar {
-            border-right: 1px solid var(--c-fg);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
+        h1 {
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 800;
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+            margin-bottom: 60px;
         }
 
-        .meta-group h3 {
-            background: var(--c-fg);
-            color: var(--c-bg);
+        /* Shatter effect for "FORM" */
+        .shatter {
             display: inline-block;
-            padding: 2px 5px;
-            margin-bottom: 10px;
-            font-size: 10px;
-            text-transform: uppercase;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
+            background: var(--fg);
+            color: var(--bg);
+            padding: 0 10px;
         }
 
-        .philosophy-text {
-            font-size: 13px;
-            text-align: justify;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
-        /* メイン：ライセンス執行エリア */
-        .content-area {
+        .grid-item {
+            background: var(--bg);
             padding: 40px;
         }
 
-        .protocol-title {
-            font-size: 60px;
-            font-weight: 900;
-            line-height: 0.8;
-            margin-bottom: 40px;
-            text-transform: uppercase;
+        .num { font-family: var(--mono); color: var(--dim); display: block; margin-bottom: 20px; }
+        h2 { font-size: 24px; margin-bottom: 20px; font-weight: 600; }
+        p { color: var(--dim); line-height: 1.5; font-size: 15px; }
+
+        .license-section {
+            padding: 80px 40px;
+            background: #fcfcfc;
         }
 
-        .license-frame {
-            border: 1px solid var(--c-fg);
+        .license-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .license-viewer {
+            background: var(--bg);
+            border: 1px solid var(--fg);
+            margin-top: 40px;
             position: relative;
-            background: rgba(255,255,255,0.02);
         }
 
-        .license-frame::before {
-            content: "SECURED_CONTENT";
-            position: absolute;
-            top: -10px; right: 20px;
-            background: var(--c-bg);
-            padding: 0 5px;
-            font-size: 10px;
+        .viewer-header {
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+
+        .viewer-header span { font-family: var(--mono); font-size: 12px; }
 
         pre {
-            padding: 30px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            font-size: 14px;
-            color: #ccc;
+            padding: 40px;
+            font-family: var(--mono);
+            font-size: 13px;
+            line-height: 1.8;
+            overflow-x: auto;
+            color: #333;
         }
 
-        .action-bar {
-            margin-top: 20px;
-            display: flex;
-            gap: 10px;
+        .copy-trigger {
+            background: var(--fg);
+            color: var(--bg);
+            border: none;
+            padding: 8px 20px;
+            font-family: var(--mono);
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.1s;
         }
 
-        .btn {
-            background: none;
-            border: 1px solid var(--c-fg);
-            color: var(--c-fg);
-            padding: 10px 20px;
-            text-transform: uppercase;
-            font-family: var(--f-mono);
-            font-weight: bold;
-            transition: 0.2s;
+        .copy-trigger:active { transform: scale(0.95); }
+
+        .core-input {
+            margin-top: 100px;
+            border-top: 1px solid var(--fg);
+            padding-top: 40px;
         }
 
-        .btn:hover {
-            background: var(--c-fg);
-            color: var(--c-bg);
-        }
-
-        .btn-copy { border-color: var(--c-accent); color: var(--c-accent); }
-        .btn-copy:hover { background: var(--c-accent); color: var(--c-fg); }
-
-        /* 入力シミュレーション */
-        .core-input-section {
-            margin-top: 60px;
-            border-top: 1px solid var(--c-dim);
-            padding-top: 20px;
-        }
-
-        .core-field {
+        input {
             width: 100%;
-            background: transparent;
-            border: 1px dashed var(--c-dim);
-            color: var(--c-accent);
-            padding: 15px;
-            font-family: var(--f-mono);
-            font-size: 16px;
-            margin-top: 10px;
+            border: none;
+            font-size: 40px;
+            font-family: var(--font);
+            font-weight: 700;
             outline: none;
+            letter-spacing: -0.03em;
         }
+
+        input::placeholder { color: var(--border); }
 
         footer {
-            border-top: 1px solid var(--c-fg);
-            padding: 10px;
-            text-align: right;
-            font-size: 10px;
-            color: var(--c-dim);
+            padding: 100px 40px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--dim);
+            font-family: var(--mono);
+            font-size: 11px;
         }
 
-        @media (max-width: 900px) {
-            .main-container { grid-template-columns: 1fr; }
-            .sidebar { border-right: none; border-bottom: 1px solid var(--c-fg); }
-            .protocol-title { font-size: 30px; }
+        @media (max-width: 768px) {
+            h1 { font-size: 4rem; }
+            .grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
+    <div class="noise"></div>
 
-    <div class="sys-header">
-        <div>LCL_COMMUNITY_SYSTEM_PROTOCOL</div>
-        <div id="clock">00:00:00</div>
-    </div>
+    <header>
+        <div class="brand">LCL / LEAVE CORE LICENSE</div>
+        <div class="version">BUILD_2026.V1</div>
+    </header>
 
-    <div class="main-container">
-        <aside class="sidebar">
-            <div class="meta-group">
-                <h3>01_Abstract</h3>
-                <p class="philosophy-text">
-                    LCL（Leave Core License）は、ソースコードの「器」ではなく、その深淵に宿る「核（Core）」を継承させるためのプロトコルである[cite: 1]。
-                    形を壊すことを恐れるな。断片になることを厭うな。
-                    だが、その魂を汚すことだけは、死を以てしても禁ずる[cite: 1]。
-                </p>
+    <main>
+        <section class="hero">
+            <h1>SHATTER THE <span class="shatter">FORM.</span><br>LEAVE THE CORE.</h1>
+            <p style="max-width: 500px; color: var(--fg); font-weight: 500;">
+                器の保護を捨て、意図を継承せよ。形式の破壊は自由であり、核心の裏切りは権利の死を意味する。
+            </p>
+        </section>
+
+        <div class="grid">
+            <div class="grid-item">
+                <span class="num">01</span>
+                <h2>形への執着からの脱却</h2>
+                <p>コード、ピクセル、文字列。これらはすべて「器」に過ぎない。LCLは器の整合性ではなく、作者がその作品に込めた「哲学」の保護を最優先する。</p>
             </div>
-            <div class="meta-group">
-                <h3>02_Status</h3>
-                <p>VERSION: 1.0.0</p>
-                <p>AUTHOR: FRISK-V3_COMMUNITY</p>
-                <p>CORE_PROTECTION: ACTIVE</p>
+            <div class="grid-item">
+                <span class="num">02</span>
+                <h2>断片化の自由</h2>
+                <p>たとえ一行のコード、一筆の線になろうとも、Coreが生きている限り、このライセンスはその断片に追従し、魂を守り続ける。</p>
             </div>
-        </aside>
+            <div class="grid-item">
+                <span class="num">03</span>
+                <h2>信頼という名の契約</h2>
+                <p>これは法的な拘束を超えた、開発者同士の「誓約」である。核心を兵器化し、作者の意図を蹂躙した瞬間、すべての権利は消失する。</p>
+            </div>
+        </div>
 
-        <main class="content-area">
-            <h1 class="protocol-title">Shatter the form.<br>Leave the core.</h1>
-
-            <div class="license-frame">
-                <pre id="license-text">THE LCL LICENSE (LEAVE CORE LICENSE)
+        <section class="license-section">
+            <div class="license-container">
+                <span class="brand" style="opacity: 0.3;">RAW_PROTOCOL_DATA</span>
+                <div class="license-viewer">
+                    <div class="viewer-header">
+                        <span>LCL_LICENSE_V1.0.txt</span>
+                        <button class="copy-trigger" onclick="copy()">COPY TO CLIPBOARD</button>
+                    </div>
+                    <pre id="raw-text">THE LCL LICENSE (LEAVE CORE LICENSE)
 Version 1.0
 
 PREAMBLE
@@ -213,55 +222,37 @@ Definition of the Core: The Original Author shall define the "Core" of the work.
 Grant of License: Any user, modifier, or distributor (hereafter "The User") is granted a perpetual, worldwide, royalty-free, non-exclusive license to use, modify, and redistribute the work in any form, subject to the following conditions:
 
 Integrity of the Core: The integrity of the Core must be preserved. The work shall not be used in a context that contradicts, parodies in bad faith, or actively seeks to undermine the specific philosophical intent defined by the Author.
-Substance over Appearance: Even if the work is transformed into something unrecognizable in form, the underlying purpose (the Core) must remain the guiding principle of the new creation.
 
 2. TRACEABILITY OVER FORMALITY
-The User is under no obligation to maintain a formal "fork" history or a complex chain of custody. However, the User must ensure that any third party can, with reasonable effort, trace the work back to its Original Author. A single hyperlink, a source code comment, or a digital fingerprint is sufficient.
+The User is under no obligation to maintain a formal "fork" history. However, the User must ensure that any third party can trace the work back to its Original Author. A single hyperlink, a source code comment, or a digital fingerprint is sufficient.
 
 3. FREEDOM OF FRAGMENTATION
-The User may disassemble the work. This license follows every fragment—whether it is a single line of code, a single brushstroke, or a single sentence. As long as any part of the work is used, the User is bound by the obligation to respect the Core.
+The User may disassemble the work. This license follows every fragment. As long as any part of the work is used, the User is bound by the obligation to respect the Core.
 
 4. TERMINATION OF RIGHTS
-This license is a covenant of trust. If the User weaponizes the work against its own Core, this license is automatically and immediately revoked.</pre>
-            </div>
+If the User weaponizes the work against its own Core, this license is automatically and immediately revoked.</pre>
+                </div>
 
-            <div class="action-bar">
-                <button class="btn btn-copy" onclick="copyProtocol()">COPY_PROTOCOL_TEXT</button>
-                <button class="btn" onclick="window.print()">PRINT_HARDCOPY</button>
-            </div>
-
-            <div class="core-input-section">
-                <h3>DEFINE YOUR CORE:</h3>
-                <input type="text" class="core-field" placeholder="> 完全なる混沌の具現化が目的です。" oninput="updateSnippet(this.value)">
-                <div style="margin-top: 10px; font-size: 10px; color: var(--c-dim);">
-                    RESULT: ・ License: LCL 1.0 ・ Author: [USER] ・ The Core: <span id="core-result" style="color: var(--c-accent);">[UNDEFINED]</span>
+                <div class="core-input">
+                    <span class="num">DEFINE YOUR CORE</span>
+                    <input type="text" placeholder="WRITE YOUR UNYIELDING INTENT">
                 </div>
             </div>
-        </main>
-    </div>
+        </section>
+    </main>
 
     <footer>
-        [SYS_LOG] ESTABLISHED: 2026.04 // NO_USER_IDENTIFIED // DATA_ENCRYPTED
+        <div>FOR THE CREATORS WHO MEAN BUSINESS.</div>
+        <div>(C) 2026 LCL COMMUNITY</div>
     </footer>
 
     <script>
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toTimeString().split(' ')[0];
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        function updateSnippet(val) {
-            document.getElementById('core-result').innerText = val || "[UNDEFINED]";
-        }
-
-        async function copyProtocol() {
-            const text = document.getElementById('license-text').innerText;
-            await navigator.clipboard.writeText(text);
-            const btn = document.querySelector('.btn-copy');
-            btn.innerText = 'SUCCESSFUL_COPIED';
-            setTimeout(() => btn.innerText = 'COPY_PROTOCOL_TEXT', 2000);
+        async function copy() {
+            const t = document.getElementById('raw-text').innerText;
+            await navigator.clipboard.writeText(t);
+            const b = document.querySelector('.copy-trigger');
+            b.innerText = 'COPIED';
+            setTimeout(() => b.innerText = 'COPY TO CLIPBOARD', 2000);
         }
     </script>
 </body>
