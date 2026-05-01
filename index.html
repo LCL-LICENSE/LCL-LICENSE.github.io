@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE LCL LICENSE | Preserve the Core, Shatter the Form</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --surface: #111111;
+            --text-main: #f0f0f0;
+            --text-dim: #888888;
+            --accent: #ffffff;
+            --border: #222222;
+            --font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            --font-sans: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: radial-gradient(circle at center, #111 0%, #050505 100%);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(to bottom, #fff 40%, #555 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            letter-spacing: 0.3em;
+            animation: pulse 2s infinite;
+        }
+
+        /* Content Sections */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        section { margin-bottom: 150px; }
+
+        .label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 40px;
+            letter-spacing: -0.01em;
+        }
+
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .philosophy-item p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+        }
+
+        .philosophy-item b { color: var(--text-main); }
+
+        /* Code Block */
+        .license-terminal {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .terminal-header {
+            padding: 12px 20px;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-dots { display: flex; gap: 8px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid #444;
+            color: var(--text-dim);
+            padding: 4px 12px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn:hover { border-color: #fff; color: #fff; }
+
+        pre {
+            padding: 40px;
+            font-family: var(--font-mono);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #ccc;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* How to Use */
+        .usage-card {
+            background: linear-gradient(145deg, #111, #080808);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 4px;
+        }
+
+        .usage-card pre {
+            padding: 20px 0 0 0;
+            color: var(--accent);
+        }
+
+        footer {
+            padding: 100px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: #444;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .philosophy-grid { grid-template-columns: 1fr; }
+            h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>The LCL License</h1>
+        <p>Leave Core License // Version 1.0</p>
+        <div class="scroll-hint">SCROLL TO READ THE MANIFESTO</div>
+    </div>
+
+    <div class="container">
+        <section id="philosophy">
+            <span class="label">01. Philosophy</span>
+            <h2>形態を破壊し、核を残せ。</h2>
+            <div class="philosophy-grid">
+                <div class="philosophy-item">
+                    <p>既存のライセンスは、ソースコードの「形式」という器を保護することに固執してきました。LCLはそれを拒絶します。我々が守るべきは器ではなく、その作品が宿す<b>「CORE（核心）」</b>です。</p>
+                </div>
+                <div class="philosophy-item">
+                    <p>利用者は、作品を分解し、散乱させ、作り変える完全な自由を持ちます。ただし、その作品の魂である<b>哲学的な目的</b>を裏切ることだけは許されません。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="license">
+            <span class="label">02. License Text</span>
+            <div class="license-terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <button class="copy-btn" onclick="copyLicense()">COPY TEXT</button>
+                </div>
+                <pre id="license-text">THE LCL LICENSE (LEAVE CORE LICENSE)
+Version 1.0
+
+PREAMBLE
+Traditional licenses prioritize the protection of "form"—source code, pixels, or strings of text. They impose rigid requirements for history, forks, and complex attributions. The LCL License rejects this obsession with the vessel. Instead, it mandates the protection of the "CORE"—the fundamental intent, the soul, and the philosophical purpose for which the work was brought into existence.
+
+You are free to break the form. You are free to scatter the pieces. But you must never betray the Core.
+
+1. THE CORE MANDATE
+Definition of the Core: The Original Author shall define the "Core" of the work.
+Grant of License: Any user, modifier, or distributor (hereafter "The User") is granted a perpetual, worldwide, royalty-free, non-exclusive license to use, modify, and redistribute the work in any form, subject to the following conditions:
+
+Integrity of the Core: The integrity of the Core must be preserved. The work shall not be used in a context that contradicts, parodies in bad faith, or actively seeks to undermine the specific philosophical intent defined by the Author.
+Substance over Appearance: Even if the work is transformed into something unrecognizable in form, the underlying purpose (the Core) must remain the guiding principle of the new creation.
+
+2. TRACEABILITY OVER FORMALITY
+The User is under no obligation to maintain a formal "fork" history or a complex chain of custody. However, the User must ensure that any third party can, with reasonable effort, trace the work back to its Original Author. A single hyperlink, a source code comment, or a digital fingerprint is sufficient.
+
+3. FREEDOM OF FRAGMENTATION
+The User may disassemble the work. This license follows every fragment—whether it is a single line of code, a single brushstroke, or a single sentence. As long as any part of the work is used, the User is bound by the obligation to respect the Core.
+
+4. TERMINATION OF RIGHTS
+This license is a covenant of trust. If the User weaponizes the work against its own Core, this license is automatically and immediately revoked.</pre>
+            </div>
+        </section>
+
+        <section id="apply">
+            <span class="label">03. Application</span>
+            <h2>How to Apply</h2>
+            <div class="usage-card">
+                <p>プロジェクトの `LICENSE` ファイル、またはソースコードのヘッダーに以下を記述してください。</p>
+<pre>
+・ License: LCL (Leave Core License) 1.0
+・ Author: [Your Identifier]
+・ The Core: [あなたのゆずれない「本気」の意図をここに記述]
+</pre>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        FORM IS TEMPORARY. CORE IS ETERNAL. // LCL COMMUNITY 2026
+    </footer>
+
+    <script>
+        async function copyLicense() {
+            const text = document.getElementById('license-text').innerText;
+            try {
+                await navigator.clipboard.writeText(text);
+                const btn = document.querySelector('.copy-btn');
+                btn.innerText = 'COPIED';
+                setTimeout(() => btn.innerText = 'COPY TEXT', 2000);
+            } catch (err) {
+                console.error('Failed to copy: ', err);
+            }
+        }
+    </script>
+</body>
+</html>
